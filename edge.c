@@ -83,8 +83,10 @@ int main(int argc, char **argv)
         //detect changes from 0 to 1 and 1 to 0 in adjacent bits
         for(int j = 0; j < 8; j++)
         {
+            int stone_before            = i & (1 << wrap_direction(j - 1));
             int stone_in_main_direction = i & (1 << j);
             int stone_in_next_direction = i & (1 << wrap_direction(j + 1));
+            int stone_after             = i & (1 << wrap_direction(j + 2));
         
             // string edges
             if (stone_in_main_direction && !stone_in_next_direction)
@@ -99,17 +101,17 @@ int main(int argc, char **argv)
             // region edges
             if (!stone_in_main_direction && stone_in_next_direction)
             {
-                //if(j % 2 == 0 || i & (1 << wrap_direction(j + 2)))
-                //{
+                if(j % 2 == 0 || !stone_before)
+                {
                     edgeConverter[i].region_edge_in[j] = 1;
-                //}
+                }
             }
             else if (stone_in_main_direction && !stone_in_next_direction)
             {
-                //if(j % 2 == 0 || i & (1 << wrap_direction(j - 1)))
-                //{
+                if(j % 2 == 1 || !stone_after)
+                {
                     edgeConverter[i].region_edge_out[wrap_direction(j + 1)] = 1;
-                //}
+                }
             }
         }
     }
@@ -156,7 +158,7 @@ int main(int argc, char **argv)
                         edgeConverter[i].region_edge_part_paths[path].path_direction_in = wrap_direction(j - k);
                         edgeConverter[i].region_edge_part_paths[path].path_direction_out = j;
 
-                        if(j % 2 == 0 && k == 6)
+                        if(j % 2 == 0 && k == 2)
                         {
                             edgeConverter[i].region_edge_part_paths[path].path_visits_centre = false;
                         }
