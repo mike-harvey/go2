@@ -1,3 +1,23 @@
+/* ---------------------------------------------------------------------
+ * edge.c
+ *
+ * Make tiny 3x3 maps of how string and region boundaries (edges) appear
+ * on the go goard.  They are binary maps because points are either;
+ *   - my colour or "off the board"
+ * OR
+ *   - my opponent's colour or empty
+ *
+ * REGIONS are used to implement Benson's algorithm for pass-alive stones
+ *
+ * NOTE
+ *   Edges of diagonal stones that do not visit the centre point
+ *     Having goneto some trouble to identify these it occurs to me
+ *     that they may not be necessary.
+ *     It could be more efficient to considet paths only through
+ *     ORTHOGONALLY ADJACENT points.
+ *   i.e. Cut the number of edge maps to be pushed to a minimum of four
+ */
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
