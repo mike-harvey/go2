@@ -63,7 +63,7 @@ int wrap_direction(int d)
     return d;
 }
 
-int main(int argc, char **argv)
+void generateEdges(void)
 {
     // Build a set of edge guides for points on a go board
     // depending only on the colour of the surrounding stones
@@ -217,3 +217,12 @@ int main(int argc, char **argv)
         }
     }
 }
+
+#if 0
+int main(int argc, char **argv)
+{
+    generateEdges();
+    
+    return 0;
+}
+#endif
